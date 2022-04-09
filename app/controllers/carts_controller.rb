@@ -1,15 +1,20 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
-
+  
+  # AGREGA PRODUCTOS AL CARRO ACTUAL (order)
   def update
+    # toma el product_id y 1 unidad de un produto del los campos ocultos del formulario
     product = params[:cart][:product_id]
     quantity = params[:cart][:quantity]
 
+    # agrega el producto directamente a la tabla intermedia order_item
+    # como si fuese inmediatamente comprado?
     current_order.add_product(product, quantity)
 
     redirect_to root_url, notice: "Product added successfuly"
   end
 
+  # CARGA LOS PRODUCTOS DEL ULTIMO CARRO
   def show
     @order = current_order
   end
@@ -39,8 +44,6 @@ class CartsController < ApplicationController
 
     redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
   end
-
-
 
   def process_paypal_payment
     details = EXPRESS_GATEWAY.details_for(params[:token])

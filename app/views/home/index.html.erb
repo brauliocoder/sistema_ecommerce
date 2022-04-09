@@ -2,10 +2,12 @@
   <div class="col-md-8 offset-2">
     <div class="container">
       <div class="row">
+
         <% @products.each do |product| %>
           <div class="col-md-3">
             <div class="card">
-              <img class="card-img-top" src="https://dummyimage.com/600x400/c7c7c7/737373&text=image" alt="<%= product.name%>"/>
+              <img class="card-img-top" src="https://dummyimage.com/600x400/c7c7c7/737373&text=image" alt="<%= product.name %>"/>
+
               <div class="card-block">
                 <h5 class="card-title"><%= product.name %></h5>
                 <div class="card-text">
@@ -14,18 +16,20 @@
                 </div>
                 <div class="row float-right">
                   <div class="col-md-12">
+
                     <%= form_for :cart, url: cart_path, method: :put do |f| %>
                       <%= f.hidden_field :product_id, value: product.id %>
                       <%= f.hidden_field :quantity, value: 1 %>
                       <%= f.submit "Add to cart" %>
                     <% end %>
-                    <button class="btn btn-primary btn-sm">Add to cart</button>
+                    
                   </div>
                 </div>
               </div>
             </div>
           </div>
         <% end %>
+        
       </div>
     </div>
   </div>
