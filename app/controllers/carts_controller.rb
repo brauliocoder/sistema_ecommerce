@@ -33,7 +33,10 @@ class CartsController < ApplicationController
       currency: "USD"
     )
 
+    # establece el metodo de pago
     payment_method = PaymentMethod.find_by(code: "PEC")
+    
+    # crea el pago en payment
     Payment.create(
       order_id: order.id,
       payment_method_id: payment_method.id,
