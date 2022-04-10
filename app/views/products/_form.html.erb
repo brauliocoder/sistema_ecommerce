@@ -22,11 +22,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :stock %>
-    <%= form.number_field :stock %>
-  </div>
-
-  <div class="field">
     <%= form.label :price %>
     <%= form.text_field :price %>
   </div>
@@ -36,12 +31,8 @@
     <%= form.text_field :sku %>
   </div>
   <div class="field">
-    <%= form.label :categories %>
-        <%= form.collection_check_boxes(:category_ids, Category.all, :id,:name) do |b| %>
-          <%= b.label class:"label-checkbox" do%>
-          <%=b.check_box + b.text%>
-        <%end%>
-    <% end %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, { include_blank: true } %>
+    
   </div>
 
   <div class="actions">
