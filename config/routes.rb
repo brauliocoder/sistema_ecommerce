@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   
   authenticate :admin do
     resources :products do
-      resources :variations do
+      resources :variations, except: :show do
         resources :properties
       end
     end

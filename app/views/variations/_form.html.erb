@@ -1,4 +1,4 @@
-<%= form_with(model: variation, local: true) do |form| %>
+<%= form_with(model: [@product, variation], local: true) do |form| %>
   <% if variation.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(variation.errors.count, "error") %> prohibited this variation from being saved:</h2>
@@ -14,11 +14,6 @@
   <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :product_id %>
-    <%= form.text_field :product_id %>
   </div>
 
   <div class="actions">

@@ -25,5 +25,18 @@
   <%= @product.sku %>
 </p>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<h2>Variations Resume</h2>
+
+<table>
+  <% @product.variations.each do |variation| %>
+    <tr>
+      <td><%= variation.title %></td>
+      <td><%= link_to 'Edit Variation', edit_product_variation_path(@product, variation) %></td>
+      <td><%= link_to 'Destroy Variation', [@product, variation], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Add Variation', new_product_variation_path(@product) %> |
+<%= link_to 'Edit Product', edit_product_path(@product) %> |
+<%= link_to 'Back to Products', products_path %>
