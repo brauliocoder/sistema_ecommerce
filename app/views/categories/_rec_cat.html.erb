@@ -1,16 +1,18 @@
-<ul>
-  <li>
-    <%= cats.name %>
-    <span>
-      (<%= link_to 'Add Subcategory', new_category_path(pid: cats.id) %>
-      <%= link_to 'Show', cats %>
-      <%= link_to 'Edit', edit_category_path(cats) %>
-      <%= link_to 'Destroy', cats, method: :delete, data: { confirm: 'Are you sure?' } %>
-    </span>)
-    <% if cats.subcategories.exists? %>
+
+<li>
+  <%= cats.name %>
+  <span>
+    (<%= link_to 'Add Subcategory', new_category_path(id: cats.id) %> |
+    <%= link_to 'Show', cats %>
+    <%= link_to 'Edit', edit_category_path(cats) %>
+    <%= link_to 'Destroy', cats, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </span>)
+  
+  <% if cats.subcategories.exists? %>
+    <ul>
       <% cats.subcategories.each do |c| %>
         <%= render 'rec_cat', cats: c %>
       <% end %>
-    <% end %>
-  </li>
-</ul>
+    </ul>
+  <% end %>
+</li>

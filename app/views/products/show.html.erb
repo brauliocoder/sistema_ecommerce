@@ -24,6 +24,10 @@
   <strong>Sku:</strong>
   <%= @product.sku %>
 </p>
+<p>
+  <strong>Total Stock:</strong>
+  <%= @product.total_stock %>
+</p>
 
 <h2>Variations Resume <small>(<%= link_to 'Add Variation', new_product_variation_path(@product) %>)</small></h2>
 
@@ -33,7 +37,7 @@
     <ul>
       <li>
         <h5>
-          <%= variation.title %> <small>(Total Stock: <b><%= variation.total_stock %></b>)</small>
+          <%= variation.title %> <small>(SubTotal Stock: <b><%= variation.total_stock %></b>)</small>
           <small>
             (<span><%= link_to 'Edit', edit_variation_path(variation) %></span> |
             <span><%= link_to 'Destroy', variation, method: :delete, data: { confirm: 'Are you sure?' } %></span>)

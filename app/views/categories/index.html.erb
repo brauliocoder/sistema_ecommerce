@@ -2,10 +2,10 @@
 
 <h1>Categories</h1>
 
-<% @categories.where(parent_id: nil).each do |category| %>
-  <%= render 'rec_cat', cats: category  %>
-<% end %>
-
-<br>
+<ul>
+  <% @categories.where(parent_id: nil).each do |category| %>
+    <%= render 'rec_cat', cats: category  %>
+  <% end %>
+</ul>
 
 <%= link_to 'New Category', new_category_path %>
