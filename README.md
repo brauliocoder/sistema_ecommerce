@@ -1,24 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Diagrama de Modelos
+https://drive.google.com/file/d/1Sx0Ru6KoLEcNS2zD6YDcI14dqDGbRS5c/view?usp=sharing
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Se ha modificado la referencia a products en la tabla OrderItem
+Ahora cada propiedad como color, tiene un stock propio
