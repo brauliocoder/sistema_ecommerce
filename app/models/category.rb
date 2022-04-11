@@ -20,5 +20,4 @@ class Category < ApplicationRecord
 
     return "/#{a.reverse().join("/")}"
   end
-  
 end
