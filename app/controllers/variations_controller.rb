@@ -1,5 +1,5 @@
 class VariationsController < ApplicationController
-  before_action :get_product
+  before_action :get_product, only: [:index, :new, :create]
   before_action :set_variation, only: [:show, :edit, :update, :destroy]
 
   # GET /variations
@@ -43,7 +43,7 @@ class VariationsController < ApplicationController
   def update
     respond_to do |format|
       if @variation.update(variation_params)
-        format.html { redirect_to product_path(@product), notice: 'Variation was successfully updated.' }
+        format.html { redirect_to product_path(@variation.product), notice: 'Variation was successfully updated.' }
         format.json { render :show, status: :ok, location: @variation }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class VariationsController < ApplicationController
   def destroy
     @variation.destroy
     respond_to do |format|
-      format.html { redirect_to product_path(@product), notice: 'Variation was successfully destroyed.' }
+      format.html { redirect_to product_path(@variation.product), notice: 'Variation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,7 +69,7 @@ class VariationsController < ApplicationController
     
     # Use callbacks to share common setup or constraints between actions.
     def set_variation
-      @variation = @product.variations.find(params[:id])
+      @variation = Variation.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

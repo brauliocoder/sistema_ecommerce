@@ -25,18 +25,51 @@
   <%= @product.sku %>
 </p>
 
-<h2>Variations Resume</h2>
+<h2>Variations Resume <small>(<%= link_to 'Add Variation', new_product_variation_path(@product) %>)</small></h2>
 
 <table>
+  <hr>
   <% @product.variations.each do |variation| %>
-    <tr>
-      <td><%= variation.title %></td>
-      <td><%= link_to 'Edit Variation', edit_product_variation_path(@product, variation) %></td>
-      <td><%= link_to 'Destroy Variation', [@product, variation], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
+    <ul>
+      <li>
+        <h5>
+          <%= variation.title %> <small>(Total Stock: <b><%= variation.total_stock %></b>)</small>
+          <small>
+            (<span><%= link_to 'Edit', edit_variation_path(variation) %></span> |
+            <span><%= link_to 'Destroy', variation, method: :delete, data: { confirm: 'Are you sure?' } %></span>)
+          </small>
+        </h5>
+        
+        <ul>
+          <% if variation.properties.exists? %>
+            <p>
+              <% variation.properties.each do |property| %>
+                <li>
+                  <span>
+                    ( <%= link_to 'Delete', [variation, property], method: :delete, data: { confirm: 'Are you sure?' } %> |
+                    <%= link_to 'Edit', edit_variation_property_path(variation, property) %>)
+                  </span>
+                  <b><%= property.name %></b> <%= @product.name %> <%= variation.title %> (<b>Stock:</b> <%= property.stock %> )
+                </li>
+              <% end %>
+            </p>
+          <% else %>
+            <p>
+              <b>No Stock Found</b><br>
+              <small>Add at least one property such as color to show this product in the public catalogue.</small>
+            </p>
+          <% end %>
+          <li>
+            <span><%= link_to 'Add New Property', new_variation_property_path(variation.id) %></span>
+          </li>
+        </ul>
+      </li>
+
+
+    </ul>
+    <hr>
   <% end %>
 </table>
 
-<%= link_to 'Add Variation', new_product_variation_path(@product) %> |
 <%= link_to 'Edit Product', edit_product_path(@product) %> |
 <%= link_to 'Back to Products', products_path %>

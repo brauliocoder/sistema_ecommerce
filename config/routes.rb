@@ -4,15 +4,16 @@ Rails.application.routes.draw do
   root to: "home#index"
   
   authenticate :admin do
-    resources :products do
-      resources :variations, except: :show do
-        resources :properties
-      end
-    end
     resources :categories
+    
+    resources :products do
+      resources :variations, only: [:index, :new, :create]
+    end
 
-    # TODO nested resources for create properties such as color inside each variation such as size
-
+    resources :variations, except: [:index, :new, :create, :show] do
+      resources :properties, except: [:index, :show]
+    end
+    
     resources :coupons
   end
 

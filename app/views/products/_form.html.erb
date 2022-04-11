@@ -30,9 +30,9 @@
     <%= form.label :sku %>
     <%= form.text_field :sku %>
   </div>
+
   <div class="field">
     <%= form.collection_select :category_id, Category.all, :id, :name, { include_blank: true } %>
-    
   </div>
 
   <div class="actions">

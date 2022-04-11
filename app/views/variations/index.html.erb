@@ -14,9 +14,8 @@
     <% @variations.each do |variation| %>
       <tr>
         <td><%= variation.title %></td>
-        <td><%= link_to 'Show Product', [@product] %></td>
-        <td><%= link_to 'Edit Variation', edit_product_variation_path(@product, variation) %></td>
-        <td><%= link_to 'Destroy Variation', [@product, variation], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit Variation', edit_variation_path(variation) %></td>
+        <td><%= link_to 'Destroy Variation', variation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
