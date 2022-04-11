@@ -19,8 +19,9 @@ Rails.application.routes.draw do
 
   resource :cart, only: [:show, :update] do
     member do
-      post :pay_with_paypal
-      get  :process_paypal_payment
+      post  :pay_with_paypal
+      get   :process_paypal_payment
+      get   :validate_coupon
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

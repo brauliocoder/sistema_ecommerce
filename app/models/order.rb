@@ -11,6 +11,8 @@ class Order < ApplicationRecord
 
   has_many :payments
 
+  belongs_to :coupon
+
   # ---------
   # GENERADOR DE LA CADENA ALEATORIA PARA NUMBER
   # Crea una cadena unica aleatorio para una orden
@@ -65,5 +67,53 @@ class Order < ApplicationRecord
 
     # actualiza el valor de la suma total para la orden actual
     update_attribute(:total, sum)
+  end
+
+  def use_coupon(coupon_code)
+    c = Coupon.find_by_code(coupon_code)
+
+    if not c.nil?
+      if c.one_use
+        if c.orders.count < 1
+          self.coupon_id = c.id
+          self.save
+        end
+      else
+        not_a_cheater = Order.where(user_id: self.user.id).where(coupon_id: c.id)
+        if not_a_cheater.count == 0
+          self.coupon_id = c.id
+          self.save
+        end
+      end
+    end
+  end
+
+  def discounted_price
+    c = self.coupon
+
+    total = self.total
+    if not c.nil?
+      if c.discount_type == "percentage"
+        total = total * (100 - c.discount) / 100
+      else
+        if c.discount >= total
+          total = 0
+        else
+          total -= c.discount
+        end
+      end
+    end
+
+    return total
+  end
+
+  def discount_in_human
+    if not self.coupon.nil?
+      if self.coupon.discount_type == "percentage"
+        return "#{self.coupon.discount}\%"
+      else
+        return "\$#{self.coupon.discount}"
+      end
+    end
   end
 end

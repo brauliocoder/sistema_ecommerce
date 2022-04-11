@@ -14,6 +14,13 @@ class CartsController < ApplicationController
     redirect_to root_url, notice: "Product added successfuly"
   end
 
+  def validate_coupon
+    coupon = params[:coupon_code]
+    current_order.use_coupon(coupon)
+
+    redirect_to cart_path
+  end
+
   # CARGA LOS PRODUCTOS DEL ULTIMO CARRO
   def show
     @order = current_order
@@ -23,7 +30,7 @@ class CartsController < ApplicationController
     order = Order.find(params[:cart][:order_id])
 
     #price must be in cents
-    price = order.total * 100
+    price = order.discounted_price * 100
 
     response = EXPRESS_GATEWAY.setup_purchase(price,
       ip: request.remote_ip,
@@ -41,7 +48,7 @@ class CartsController < ApplicationController
       order_id: order.id,
       payment_method_id: payment_method.id,
       state: "processing",
-      total: order.total,
+      total: order.discounted_price,
       token: response.token
     )
 

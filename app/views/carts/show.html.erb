@@ -7,9 +7,6 @@
     <div class="card-body">
       <% @order.order_items.each do |item| %>
         <div class="row">
-            <div class="col-xs-2 col-md-2">
-                <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew">
-            </div>
             <div class="col-xs-4 col-md-6">
               <h4 class="product-name">
                 <strong><%= item.product.name %> <%= item.property.full_name %></strong>
@@ -31,14 +28,27 @@
         </div>
         <hr>
       <% end %>
-
     </div>
+
     <div class="card-footer">
         <div class="pull-right" style="margin: 5px">
-          Total: $<b><%= @order.total %></b>
+          <div>Original: $<b><%= @order.total %></b></div>
+          <div>Total: $<b><%= @order.discounted_price %></b></div>
+
+          <% if not @order.coupon.nil? %>
+            Coupon Used: <%= @order.coupon.code %> (<%= @order.discount_in_human %>)
+          <% end %>
+
           <%= form_for :cart, url: pay_with_paypal_cart_path, method: :post do |f| %>
             <%= f.hidden_field :order_id, value: @order.id %>
             <%= f.submit "Pay" %>
+          <% end %>
+        </div>
+
+        <div>
+          <%= form_tag(validate_coupon_cart_path, method: :get) do %>
+            <%= text_field_tag :coupon_code, params[:coupon_code] %>
+            <%= submit_tag "Coupon" %>
           <% end %>
         </div>
     </div>

@@ -22,8 +22,11 @@
   </div>
 
   <div class="field">
-    <%= form.label :type %>
-    <%= form.text_field :type %>
+    <%= form.radio_button :discount_type, "percentage" %>
+    <%= form.label :discount_type_percentage, "percentage" %>
+
+    <%= form.radio_button :discount_type, "ammount" %>
+    <%= form.label :discount_type_ammount, "ammount" %>
   </div>
 
   <div class="field">
