@@ -5,13 +5,18 @@
         <div class="clearfix"></div>
     </div>
     <div class="card-body">
-      <% @order.order_items.includes(:product).each do |item| %>
+      <% @order.order_items.each do |item| %>
         <div class="row">
             <div class="col-xs-2 col-md-2">
                 <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew">
             </div>
             <div class="col-xs-4 col-md-6">
-              <h4 class="product-name"><strong><%= item.product.name %></strong></h4><h4><small><%= item.product.description %></small></h4>
+              <h4 class="product-name">
+                <strong><%= item.product.name %> <%= item.property.full_name %></strong>
+              </h4>
+              <h4>
+                <small><%= item.product.description %></small>
+              </h4>
             </div>
             <div class="col-xs-6 col-md-4 row">
                 <div class="col-xs-6 col-md-6 text-right" style="padding-top: 5px">

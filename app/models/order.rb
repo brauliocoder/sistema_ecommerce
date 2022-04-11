@@ -7,7 +7,7 @@ class Order < ApplicationRecord
   belongs_to :user
 
   has_many :order_items
-  has_many :products, through: :order_items
+  has_many :properties, through: :order_items
 
   has_many :payments
 
@@ -43,12 +43,12 @@ class Order < ApplicationRecord
   # Crea una orden en la tabla intermedia orden_items
   def add_product(product_id, quantity)
     # ubica el producto en la tabla
-    product = Product.find(product_id)
+    product = Property.find(product_id)
 
     # verifica que exista el producto y que tenga stock
     if product && (product.stock > 0)
       # crea la orden en la tabla intermedia
-      order_items.create(product_id: product.id, quantity: quantity, price: product.price)
+      order_items.create(property_id: product.id, quantity: quantity, price: product.price)
       
       # suma cada vez que se añade un producto, se suma al total
       compute_total
