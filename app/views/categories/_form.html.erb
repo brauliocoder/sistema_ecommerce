@@ -17,7 +17,7 @@
   </div>
 
   <div class="field">
-    <%= form.collection_select :parent_id, Category.all, :id, :name, { include_blank: true } %>
+    <%= form.collection_select :parent_id, Category.all, :id, :name, { include_blank: true, selected: params[:pid] }  %>
   </div>
 
   <div class="actions">

@@ -2,7 +2,8 @@
   <li>
     <%= cats.name %>
     <span>
-      (<%= link_to 'Show', cats %>
+      (<%= link_to 'Add Subcategory', new_category_path(pid: cats.id) %>
+      <%= link_to 'Show', cats %>
       <%= link_to 'Edit', edit_category_path(cats) %>
       <%= link_to 'Destroy', cats, method: :delete, data: { confirm: 'Are you sure?' } %>
     </span>)
